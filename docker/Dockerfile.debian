@@ -1,0 +1,89 @@
+FROM debian:bookworm
+
+ARG UID=1000
+ARG GID=1000
+
+# Set default shell during Docker image build to bash
+SHELL ["/bin/bash", "-c"]
+
+# Set non-interactive frontend for apt-get to skip any user confirmations
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install base packages
+RUN apt-get -y update && \
+    apt-get -y upgrade && \
+    apt-get install --no-install-recommends -y \
+    ca-certificates \
+    sudo \
+    gawk \
+    wget \
+    git \
+    diffstat \
+    unzip \
+    texinfo \
+    gcc \
+    build-essential \
+    make \
+    cmake \
+    ninja-build \
+    chrpath \
+    socat \
+    cpio \
+    python3-pip \
+    python3-pexpect \
+    xz-utils \
+    debianutils \
+    iputils-ping \
+    python3-git \
+    python3-jinja2 \
+    python-is-python3 \
+    libegl1-mesa \
+    libsdl1.2-dev \
+    python3-subunit \
+    mesa-common-dev \
+    zstd \
+    liblz4-tool \
+    file  \
+    locales \
+    gperf \
+    lzip \
+    meson \
+    rsync 
+    #ncurses 
+
+# Initialise system locale
+RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
+RUN locale-gen en_US.UTF-8
+
+# Clean up stale packages
+RUN apt-get clean -y && \
+    apt-get autoremove --purge -y && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create 'user' account
+RUN groupadd -g $GID -o user
+RUN useradd -u $UID -m -g user -G plugdev user
+#RUN mkdir /etc/sudoers.d/
+RUN echo "user  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/user
+RUN usermod -aG sudo user
+#### Change user
+USER user    
+RUN mkdir /home/user/project
+WORKDIR /home/user/project/
+
+#USER root
+
+#docker build -f Dockerfile.debian --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t dev-debian:v0.1 .
+
+#docker run -it --hostname dev-debian dev-debian:v0.1
+#docker run -it --hostname dev-debian -v .:/home/user/project dev-debian:v0.1
+
+#docker run -it --name dev-debian dev-debian:v0.1
+#docker run -it --name dev-debian --hostname dev-debian -v .:/home/user/project dev-debian:v0.1
+
+#docker volume create dev-debian
+
+#docker run -it --name dev-debian -v .:/home/user/project/ dev-debian:v0.1
+#docker run -it --name dev-debian -v poky-crops:/home/user/project/ poky-crops:v0.1

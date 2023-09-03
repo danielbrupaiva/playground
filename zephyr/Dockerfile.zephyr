@@ -1,0 +1,84 @@
+#https://docs.zephyrproject.org/latest/develop/getting_started/index.html
+FROM debian:bookworm
+
+ARG UID=1000
+ARG GID=1000
+
+# Set default shell during Docker image build to bash
+SHELL ["/bin/bash", "-c"]
+
+# Set non-interactive frontend for apt-get to skip any user confirmations
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install base packages
+RUN apt-get -y update && \
+    apt-get -y upgrade && \
+    apt-get install --no-install-recommends -y \
+    sudo \
+    git \
+    cmake \
+    ninja-build \
+    gperf \
+    ccache \
+    dfu-util \
+    device-tree-compiler \
+    wget \
+    python-is-python3 \
+    python3-full \
+    python3-dev \
+    python3-pip \
+    python3-venv \
+    python3-setuptools \
+    python3-tk \
+    python3-wheel \
+    xz-utils \
+    file \
+    make \
+    gcc \
+    gcc-multilib \
+    g++-multilib \
+    libsdl2-dev \
+    libmagic1 \
+    locales
+
+# Initialise system locale
+RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
+RUN locale-gen en_US.UTF-8
+
+# Clean up stale packages
+RUN apt-get clean -y && \
+    apt-get autoremove --purge -y && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create 'user' account
+RUN groupadd -g $GID -o user
+RUN useradd -u $UID -m -g user -G plugdev user
+#RUN mkdir /etc/sudoers.d/
+RUN echo "user  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/user
+RUN usermod -aG sudo user
+
+#### Change user
+USER user    
+RUN mkdir /home/user/project
+WORKDIR /home/user/
+
+# Get Zephyr and install Python dependencies
+RUN pip3 install --break-system-packages --user -U west
+ENV PATH="~/.local/bin:${PATH}"
+RUN echo $PATH
+#
+RUN west init /home/user/zephyrproject
+RUN cd /home/user/zephyrproject && west update && west zephyr-export
+RUN pip3 install --break-system-packages --user -r /home/user/zephyrproject/zephyr/scripts/requirements.txt
+## Install Zephyr SDK
+RUN cd /home/user/zephyrproject
+RUN wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.1/zephyr-sdk-0.16.1_linux-x86_64.tar.xz
+RUN wget -O - https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.1/sha256.sum | shasum --check --ignore-missing
+RUN tar xvf zephyr-sdk-0.16.1_linux-x86_64.tar.xz
+#
+RUN sudo /home/user/zephyr-sdk-0.16.1/setup.sh -t all -h -c
+RUN sudo mkdir /etc/udev/ /etc/udev/rules.d
+RUN sudo cp /home/user/zephyr-sdk-0.16.1/sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d
+#RUN sudo udevadm control --reload
