@@ -19,5 +19,5 @@
 
 
     $ docker build -f ./docker/Dockerfile.crosstool-ng --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t crosstool-ng:v0.1 .
-    $ docker volume create --name dev-crosstool-ng --opt type=none --opt device=$(pwd)/crosstool-ng --opt o=bind
-    $ docker run -it --name crosstool-ng --hostname crosstool-ng --network=bridge -v dev-crosstool-ng:/home/user/project crosstool-ng:v0.1
+    $ docker volume create --name dev-crosstool-ng --opt type=none --opt device=$(pwd)/crosstool-ng/dev-crosstool-ng/ --opt o=bind
+    $ docker run -it --name crosstool-ng --hostname crosstool-ng -v dev-crosstool-ng:/home/user/project crosstool-ng:v0.1
