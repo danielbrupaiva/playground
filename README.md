@@ -46,6 +46,8 @@ General purpose setup using linux OS - Debian12:bookworm
 
         $ vi /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
 
+        First packages
+        $ sudo apt install build-essential cmake ninja-build automake autotools-dev autoconf gawk debianutils git wget rsync python-is-python3 unzip
         
     2.2 - Install FlatPak 
     
