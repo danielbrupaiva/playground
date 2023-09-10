@@ -15,6 +15,7 @@ RUN apt-get -y update && \
     apt-get -y upgrade && \
     apt-get install --no-install-recommends -y \
     sudo \
+    udev \
     git \
     cmake \
     ninja-build \
@@ -58,6 +59,8 @@ RUN useradd -u $UID -m -g user -G plugdev user
 #RUN mkdir /etc/sudoers.d/
 RUN echo "user  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/user
 RUN usermod -aG sudo user
+RUN usermod -aG dialout user
+
 
 #### Change user
 USER user    
@@ -67,7 +70,7 @@ WORKDIR /home/user/
 # Get Zephyr and install Python dependencies
 RUN pip3 install --break-system-packages --user -U west
 ENV PATH="~/.local/bin:${PATH}"
-RUN echo $PATH
+#RUN echo $PATH
 #
 RUN west init /home/user/zephyrproject
 RUN cd /home/user/zephyrproject && west update && west zephyr-export
@@ -79,6 +82,7 @@ RUN wget -O - https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.
 RUN tar xvf zephyr-sdk-0.16.1_linux-x86_64.tar.xz
 #
 RUN sudo /home/user/zephyr-sdk-0.16.1/setup.sh -t all -h -c
-RUN sudo mkdir /etc/udev/ /etc/udev/rules.d
+#RUN sudo mkdir /etc/udev/ /etc/udev/rules.d
 RUN sudo cp /home/user/zephyr-sdk-0.16.1/sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d
 #RUN sudo udevadm control --reload
+

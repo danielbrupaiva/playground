@@ -15,7 +15,7 @@
 3. Create a volume
         
         $ docker volume create {VOLUME_NAME}
-        $ docker volume create --name {VOLUME_NAME} --opt type=none --opt device={PATH_TO_VOLUME} --opt o=bind
+        $ docker volume create --name {VOLUME_NAME} --opt type=none --opt device=$(pwd)/{PATH_TO_VOLUME} --opt o=bind
 
 [USAGE EXAMPLE]
 
@@ -28,3 +28,4 @@
     $ docker run -it --hostname dev-zephyr -v ./:/home/user/project dev-zephyr:v0.1
     $ docker run -it --name dev-zephyr --hostname dev-zephyr -v .:/home/user/project dev-zephyr:v0.1
     $ docker run -it --name dev-zephyr --hostname dev-zephyr -v dev-zephyr:/home/user/project dev-zephyr:v0.1
+    $ docker run -it --name dev-zephyr --hostname dev-zephyr -v dev-zephyr:/home/user/project --device=/dev/ttyACM0:/dev/ttyACM0 dev-zephyr:v0.1
