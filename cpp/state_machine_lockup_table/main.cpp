@@ -42,11 +42,11 @@ bool isSafety = true;
 bool isTransition[6] = {false,false,false,false,false,false};
 /*SYSTEM STATE MACHINE LOCKUP TABLE*/
 FSM_t fsm[5] = {
-    [HOME] = {  HOME,   &home_handler,   &isTransition[0], 0U, {SAFETY,IDLE}},
-    [IDLE] = {  IDLE,   &idle_handler,   &isTransition[1], 0U, {SAFETY, RUN}},
-    [RUN] = {   RUN,    &idle_handler,   &isTransition[3], 0U, {SAFETY, END}},
-    [END] = {   END,    &end_handler,    &isTransition[4], 0U, {SAFETY, HOME}},
-    [SAFETY] = {SAFETY, &safety_handler, &isTransition[5], 0U, {SAFETY, HOME}}
+    [HOME] = {  HOME,   &home_handler,   &isTransition[HOME],   0U, {SAFETY,IDLE}},
+    [IDLE] = {  IDLE,   &idle_handler,   &isTransition[IDLE],   0U, {SAFETY, RUN}},
+    [RUN] = {   RUN,    &idle_handler,   &isTransition[RUN],    0U, {SAFETY, END}},
+    [END] = {   END,    &end_handler,    &isTransition[END],    0U, {SAFETY, HOME}},
+    [SAFETY] = {SAFETY, &safety_handler, &isTransition[SAFETY], 0U, {SAFETY, HOME}}
 };
 
 
@@ -56,7 +56,6 @@ int main()
 
     /*INITIAL STATE*/
     systemState_t currentState = HOME;
-
 
     while (1)
     {

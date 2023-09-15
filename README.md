@@ -167,10 +167,24 @@ General purpose setup using linux OS - Debian12:bookworm
       2.14 - Install LXC 
       [Link] https://linuxcontainers.org/lxc/getting-started/
       [Link] https://wiki.archlinux.org/title/LXD
-      
+      [Link] https://snapcraft.io/docs/service-management
+      [Link] https://documentation.ubuntu.com/lxd/en/latest/tutorial/first_steps/
+      [Link] https://www.cyberciti.biz/faq/install-lxd-on-ubuntu-22-04-lts-using-apt-snap/
+      [Link] https://documentation.ubuntu.com/lxd/en/latest/howto/images_manage/
+
       $ sudo apt install lxc
       $ sudo apt install snapd
-      $ sudo snap install lxd
+      $ snap install lxd
+      $ usermod -aG lxd [user-name]
+      $ sudo lxd init
+      $ sudo lxc launch images:{de'bian}/{12} {container_name}
+
+
+
+
+
+      lxc exec mycontainer -- sudo --user daniel --login
+
 
 
 ## Linux references 

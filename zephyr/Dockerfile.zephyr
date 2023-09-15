@@ -40,7 +40,8 @@ RUN apt-get -y update && \
     g++-multilib \
     libsdl2-dev \
     libmagic1 \
-    locales
+    locales \
+    minicom
 
 # Initialise system locale
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment

@@ -19,7 +19,7 @@
 
 [USAGE EXAMPLE]
 
-    $ docker build -f Dockerfile.zephyr --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t dev-zephyr:v0.1 .
+    $ sudo docker build -f Dockerfile.zephyr --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t dev-zephyr:v0.1 .
     
     $ docker volume create --name dev-zephyr --opt type=none --opt device=$(pwd)/dev-zephyr --opt o=bind
 
@@ -28,4 +28,4 @@
     $ docker run -it --hostname dev-zephyr -v ./:/home/user/project dev-zephyr:v0.1
     $ docker run -it --name dev-zephyr --hostname dev-zephyr -v .:/home/user/project dev-zephyr:v0.1
     $ docker run -it --name dev-zephyr --hostname dev-zephyr -v dev-zephyr:/home/user/project dev-zephyr:v0.1
-    $ docker run -it --name dev-zephyr --hostname dev-zephyr -v dev-zephyr:/home/user/project --device=/dev/ttyACM0:/dev/ttyACM0 dev-zephyr:v0.1
+    $ sudo docker run -it --name dev-zephyr --hostname dev-zephyr -v dev-zephyr:/home/user/project --device=/dev/ttyACM0:/dev/ttyACM0 dev-zephyr:v0.1

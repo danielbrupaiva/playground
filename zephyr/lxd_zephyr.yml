@@ -1,0 +1,31 @@
+config:
+  core.https_address: '[::]:8443'
+networks:
+- config:
+    ipv4.address: auto
+    ipv6.address: auto
+  description: ""
+  name: lxdbr1
+  type: ""
+  project: default
+storage_pools:
+- config:
+    size: 30GiB
+  description: ""
+  name: zephyr
+  driver: lvm
+profiles:
+- config: {}
+  description: ""
+  devices:
+    eth0:
+      name: eth0
+      network: lxdbr1
+      type: nic
+    root:
+      path: /
+      pool: zephyr
+      type: disk
+  name: default
+projects: []
+cluster: null
