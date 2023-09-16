@@ -24,28 +24,16 @@ General purpose setup using linux OS - Debian12:bookworm
         
         (not recommended)
         $ echo "[user-name]  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/[user-name]
-
-
-        Change the mode of each FILE to MODE 
-        $ chmod ugo+x [file_name]
-
-        Configure wi-fi via command line
-        [Link] https://wiki.archlinux.org/title/Network_configuration/Wireless)
-
-        wpa_cli [references]
-        $ sudo wpa_cli
-
-        > scan
-        > scan_results
-        > add_network
-        > set_network 0 ssid "MYSSID"
-        > set_network 0 psk "passphrase"
-        > enable_network 0
-        > save_config
-        > quit
-
-        $ vi /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
-
+   
+.
+   2.2 - Install Firewall       
+       
+       $ sudo apt install ufw -y
+       $ sudo ufw enable
+       $ sudo ufw default deny incoming
+       $ sudo ufw default allow outgoing
+       $ sudo ufw allow ssh
+     
         First packages
         $ sudo apt install build-essential cmake ninja-build automake autotools-dev autoconf gawk debianutils git wget rsync python-is-python3 unzip
         
@@ -193,12 +181,37 @@ General purpose setup using linux OS - Debian12:bookworm
 
       $ sudo dpkg -i [package-name].deb
       $ sudo apt install ./[package-name].deb
-      Add user to dialout group - use to handle serial ports
+
+* Add user to dialout group - use to handle serial ports
+
       $ sudo adduser $USER dialout
-      Add /new/directory to PATH
-      $ export PATH=$PATH:/place/with/the/file
-      $ export PATH="/new/directory:$PATH"
-      $ source ~/.bashrc
+
+* Add /new/directory to PATH
+
+  $ export PATH=$PATH:/place/with/the/file
+  $ export PATH="/new/directory:$PATH"
+  $ source ~/.bashrc
+
+* Change the mode of each FILE to MODE 
+
+      $ chmod ugo+x [file_name]
+
+* Configure wi-fi via command line
+[Link] https://wiki.archlinux.org/title/Network_configuration/Wireless)
+
+wpa_cli [references]
+
+     $ sudo wpa_cli
+        > scan
+        > scan_results
+        > add_network
+        > set_network 0 ssid "MYSSID"
+        > set_network 0 psk "passphrase"
+        > enable_network 0
+        > save_config
+        > quit
+
+     $ vi /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
       
 
 ## Git references
