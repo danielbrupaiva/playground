@@ -159,21 +159,43 @@ General purpose setup using linux OS - Debian12:bookworm
       [Link] https://documentation.ubuntu.com/lxd/en/latest/tutorial/first_steps/
       [Link] https://www.cyberciti.biz/faq/install-lxd-on-ubuntu-22-04-lts-using-apt-snap/
       [Link] https://documentation.ubuntu.com/lxd/en/latest/howto/images_manage/
+      [Link] https://www.tecmint.com/install-lxc-ubuntu-debian/
 
       $ sudo apt install lxc
       $ sudo apt install snapd
       $ snap install lxd
       $ usermod -aG lxd [user-name]
       $ sudo lxd init
-      $ sudo lxc launch images:{de'bian}/{12} {container_name}
+      $ sudo lxc launch images:{debian}/{12} {container_name}
 
 
+      $ sudo lxc list 
+      $ sudo lxc profile show default 
+      $ sudo lxc storage list 
+      $ sudo lxc storage show [disk name] 
+      $ sudo lxc network show [network name] 
+      $ sudo lxc network list 
+      $ sudo lxc image list images: 
+      $ sudo lxc image list images: | grep -i ubuntu 
+      $ sudo lxc launch images:[distro]/[version]/[arch] [container-name] 
+      $ sudo lxc exec [container-name] bash 
+      $ sudo lxc info [container-name] 
+      $ sudo lxc stop container-name 
+      $ sudo lxc list | grep -i STOPPED 
+      $ sudo lxc list | grep -i RUNNING
 
+      $ sudo lxc start container1 container2 
+      $ sudo lxc restart container-name 
+      $ sudo lxc stop container-name 
+      $ sudo lxc delete container-name
 
-
-      lxc exec mycontainer -- sudo --user daniel --login
-
-
+     * Firewall 
+     
+     $ sudo ufw allow in on lxdbr0 comment 'lxdbr0 for LXD' 
+     $ sudo ufw route allow in on lxdbr0 comment 'lxdbr0 for LXD' 
+     $ sudo ufw route allow out on lxdbr0 comment 'lxdbr0 for LXD'
+     
+     $ lxc exec mycontainer -- sudo --user daniel --login
 
 ## Linux references 
 
