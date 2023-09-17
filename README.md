@@ -241,7 +241,8 @@ cluster: null
        $ sudo ufw route allow in on lxdbr0 comment 'lxdbr0 for LXD' 
        $ sudo ufw route allow out on lxdbr0 comment 'lxdbr0 for LXD'
      
-      $ lxc exec mycontainer -- sudo --user daniel --login
+       $ lxc exec ubuntu-dev -- sudo --user dev --login
+
 
 ## Linux references 
 
