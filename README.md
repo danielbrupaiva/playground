@@ -171,7 +171,44 @@ General purpose setup using linux OS - Debian12:bookworm
        $ sudo apt install snapd
        $ snap install lxd
        $ usermod -aG lxd [user-name]
+       $ echo "alias sudo='sudo -E env "PATH=$PATH"'" >> $HOME/.bashrc
+       $ echo "export PATH="$PATH:/snap/bin"" >> $HOME/.bashrc
+       $ source $HOME/.bashrc
        $ sudo lxd init
+
+LXD YML config:   
+config: {}
+networks:
+- config:
+    ipv4.address: auto
+    ipv6.address: auto
+  description: ""
+  name: lxdbr0
+  type: ""
+  project: default
+storage_pools:
+- config:
+    size: 100GiB
+  description: ""
+  name: dev
+  driver: btrfs
+profiles:
+- config: {}
+  description: ""
+  devices:
+    eth0:
+      name: eth0
+      network: lxdbr0
+      type: nic
+    root:
+      path: /
+      pool: dev
+      type: disk
+  name: default
+projects: []
+cluster: null
+
+   
        $ sudo lxc image list images: 
        $ sudo lxc image list images: | grep -i ubuntu 
        $ sudo lxc launch images:[debian]/[12] [container_name]
