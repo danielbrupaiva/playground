@@ -24,9 +24,8 @@ General purpose setup using linux OS - Debian12:bookworm
         
         (not recommended)
         $ echo "[user-name]  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/[user-name]
-   
-.
-   2.2 - Install Firewall       
+
+    2.2 - Install Firewall       
        
        $ sudo apt install ufw -y
        $ sudo ufw enable
@@ -37,7 +36,7 @@ General purpose setup using linux OS - Debian12:bookworm
         First packages
         $ sudo apt install build-essential cmake ninja-build automake autotools-dev autoconf gawk debianutils git wget rsync python-is-python3 unzip
         
-    2.2 - Install FlatPak 
+    2.3 - Install FlatPak 
     
     [Link] https://flathub.org/
 
@@ -48,29 +47,29 @@ General purpose setup using linux OS - Debian12:bookworm
         $ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
         $ sudo reboot now
 
-    2.3 - Manage GUI Desktop Enviroment [optional]
+    2.4 - Manage GUI Desktop Enviroment [optional]
 
         $ sudo tasksel
 
-    2.4 - NVIDIA driver 
+    2.5 - NVIDIA driver 
         
         $ sudo apt install nvidia-driver
 
-    2.5 - Multimidia packages
+    2.6 - Multimidia packages
       
         $ sudo apt install libavcodec-extra vlc
 
-    2.6 - Back port repositories [optional]
+    2.7 - Back port repositories [optional]
 
         $ sudo touch /etc/apt/sources.list.d/backports.list
         $ sudo echo "deb http://deb.debian.org/debian bookworm-backports main" >> /etc/apt/sources.list.d/backports.list
         $ sudo apt install -t bookworm-backports [package-name]
 
-    2.7 - Synaptic package manager
+    2.8 - Synaptic package manager
         
         $ sudo apt install synaptic
 
-    2.8 - Update Firefox-esr [Link] https://flathub.org/apps/org.mozilla.firefox
+    2.9 - Update Firefox-esr [Link] https://flathub.org/apps/org.mozilla.firefox
       
       * Remove firefox-esr (system default)
           
@@ -80,7 +79,7 @@ General purpose setup using linux OS - Debian12:bookworm
         
             $ flatpak install flathub org.mozilla.firefox
 
-    2.9 - Update LibreOffice [Link] https://flathub.org/apps/org.libreoffice.LibreOffice
+    2.10 - Update LibreOffice [Link] https://flathub.org/apps/org.libreoffice.LibreOffice
 
       * Remove libreoffice suite (system default)
       
@@ -90,7 +89,7 @@ General purpose setup using linux OS - Debian12:bookworm
             
             $ flatpak install flathub org.libreoffice.LibreOffice
 
-    2.10 - VSCode
+    2.11 - VSCode
     
       Install via flatpak  
       
@@ -110,15 +109,15 @@ General purpose setup using linux OS - Debian12:bookworm
 
       [TODO]
 
-    2.11 - Install Gnome Boxes - VM [Link] https://flathub.org/apps/org.gnome.Boxes
+    2.12 - Install Gnome Boxes - VM [Link] https://flathub.org/apps/org.gnome.Boxes
     
         $ flatpak install flathub org.gnome.Boxes
 
-    2.11 - Insync [Link] https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-bookworm_amd64.deb
+    2.13 - Insync [Link] https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-bookworm_amd64.deb
         
         $ sudo apt install ./insync_3.8.6.50504-bookworm_amd64.deb
     
-    2.12 - Install Docker [Link] https://docs.docker.com/desktop/install/debian/
+    2.14 - Install Docker [Link] https://docs.docker.com/desktop/install/debian/
 
         $ sudo apt-get update
         $ sudo apt-get install ca-certificates curl gnupg
@@ -146,54 +145,62 @@ General purpose setup using linux OS - Debian12:bookworm
         $ pass init [PUB ID]
     
 
-      2.13 - Install Qt Creator
+     2.15 - Install Qt Creator
 
         $ sudo chmod +x qt-unified-linux-x64-4.6.0-online.run
         $ ./qt-unified-linux-x64-4.6.0-online.run
 
 
-      2.14 - Install LXC 
-      [Link] https://linuxcontainers.org/lxc/getting-started/
-      [Link] https://wiki.archlinux.org/title/LXD
-      [Link] https://snapcraft.io/docs/service-management
-      [Link] https://documentation.ubuntu.com/lxd/en/latest/tutorial/first_steps/
-      [Link] https://www.cyberciti.biz/faq/install-lxd-on-ubuntu-22-04-lts-using-apt-snap/
-      [Link] https://documentation.ubuntu.com/lxd/en/latest/howto/images_manage/
-      [Link] https://www.tecmint.com/install-lxc-ubuntu-debian/
+     2.16 - Install LXC
+   
+   [Link] https://linuxcontainers.org/lxc/getting-started/
+   
+   [Link] https://wiki.archlinux.org/title/LXD
+   
+   [Link] https://snapcraft.io/docs/service-management
 
-      $ sudo apt install lxc
-      $ sudo apt install snapd
-      $ snap install lxd
-      $ usermod -aG lxd [user-name]
-      $ sudo lxd init
-      $ sudo lxc launch images:{debian}/{12} {container_name}
+   [Link] https://documentation.ubuntu.com/lxd/en/latest/tutorial/first_steps/
 
+   [Link] https://www.cyberciti.biz/faq/install-lxd-on-ubuntu-22-04-lts-using-apt-snap/
 
-      $ sudo lxc list 
-      $ sudo lxc profile show default 
-      $ sudo lxc storage list 
-      $ sudo lxc storage show [disk name] 
-      $ sudo lxc network show [network name] 
-      $ sudo lxc network list 
-      $ sudo lxc image list images: 
-      $ sudo lxc image list images: | grep -i ubuntu 
-      $ sudo lxc launch images:[distro]/[version]/[arch] [container-name] 
-      $ sudo lxc exec [container-name] bash 
-      $ sudo lxc info [container-name] 
-      $ sudo lxc stop container-name 
-      $ sudo lxc list | grep -i STOPPED 
-      $ sudo lxc list | grep -i RUNNING
+   [Link] https://documentation.ubuntu.com/lxd/en/latest/howto/images_manage/
 
-      $ sudo lxc start container1 container2 
-      $ sudo lxc restart container-name 
-      $ sudo lxc stop container-name 
-      $ sudo lxc delete container-name
+   [Link] https://www.tecmint.com/install-lxc-ubuntu-debian/
 
-     * Firewall 
+       $ sudo apt install lxc
+       $ sudo apt install snapd
+       $ snap install lxd
+       $ usermod -aG lxd [user-name]
+       $ sudo lxd init
+       $ sudo lxc image list images: 
+       $ sudo lxc image list images: | grep -i ubuntu 
+       $ sudo lxc launch images:[debian]/[12] [container_name]
+       $ sudo lxc launch images:[distro]/[version]/[arch] [container-name] 
+
+       $ sudo lxc list 
+       $ sudo lxc profile show default 
+       $ sudo lxc storage list 
+       $ sudo lxc storage show [disk name] 
+       $ sudo lxc network show [network name] 
+       $ sudo lxc network list 
+
      
-     $ sudo ufw allow in on lxdbr0 comment 'lxdbr0 for LXD' 
-     $ sudo ufw route allow in on lxdbr0 comment 'lxdbr0 for LXD' 
-     $ sudo ufw route allow out on lxdbr0 comment 'lxdbr0 for LXD'
+       $ sudo lxc exec [container-name] bash 
+       $ sudo lxc info [container-name] 
+       $ sudo lxc stop container-name 
+       $ sudo lxc list | grep -i STOPPED 
+       $ sudo lxc list | grep -i RUNNING
+
+       $ sudo lxc start container1 container2 
+       $ sudo lxc restart container-name 
+       $ sudo lxc stop container-name 
+       $ sudo lxc delete container-name
+
+      * Firewall 
+     
+       $ sudo ufw allow in on lxdbr0 comment 'lxdbr0 for LXD' 
+       $ sudo ufw route allow in on lxdbr0 comment 'lxdbr0 for LXD' 
+       $ sudo ufw route allow out on lxdbr0 comment 'lxdbr0 for LXD'
      
      $ lxc exec mycontainer -- sudo --user daniel --login
 
