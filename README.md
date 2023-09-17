@@ -212,7 +212,8 @@ cluster: null
        $ sudo lxc image list images: 
        $ sudo lxc image list images: | grep -i ubuntu 
        $ sudo lxc launch images:[debian]/[12] [container_name]
-       $ sudo lxc launch images:[distro]/[version]/[arch] [container-name] 
+       $ sudo lxc launch images:[distro]/[version] [container-name]
+       $ sudo lxc exec [container-name] bash     
 
        $ sudo lxc list 
        $ sudo lxc profile show default 
@@ -222,7 +223,7 @@ cluster: null
        $ sudo lxc network list 
 
      
-       $ sudo lxc exec [container-name] bash 
+      
        $ sudo lxc info [container-name] 
        $ sudo lxc stop container-name 
        $ sudo lxc list | grep -i STOPPED 
@@ -239,7 +240,7 @@ cluster: null
        $ sudo ufw route allow in on lxdbr0 comment 'lxdbr0 for LXD' 
        $ sudo ufw route allow out on lxdbr0 comment 'lxdbr0 for LXD'
      
-     $ lxc exec mycontainer -- sudo --user daniel --login
+      $ lxc exec mycontainer -- sudo --user daniel --login
 
 ## Linux references 
 
