@@ -171,8 +171,9 @@ General purpose setup using linux OS - Debian12:bookworm
        $ sudo apt install snapd
        $ snap install lxd
        $ usermod -aG lxd [user-name]
-       $ echo "alias sudo='sudo -E env "PATH=$PATH"'" >> $HOME/.bashrc
-       $ echo "export PATH="$PATH:/snap/bin"" >> $HOME/.bashrc
+       $ sudo chown -R lxd:lxd /snap/bin
+       $ echo "alias lxd='/snap/bin/lxd'" >> $HOME/.bashrc 
+       $ echo "alias lxc='/snap/bin/lxc'" >> $HOME/.bashrc
        $ source $HOME/.bashrc
        $ sudo lxd init
 
