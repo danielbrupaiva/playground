@@ -26,12 +26,12 @@ public:
         return *s_instance;
     }
 
-    inline void LOG(const std::string message)
+    inline void LOG(const std::string& message)
     {
         LOG(Level::INFO, "", message);
     };
 
-    inline void LOG(const Level logLevel, const std::string &TAG, const std::string message)
+    inline void LOG(const Level logLevel, const std::string &TAG, const std::string& message)
     {
         // Create a smart pointer with custom deleter
         std::shared_ptr<FILE> file(std::fopen(this->m_FileName.c_str(), "a"), FILEDeleter());
