@@ -246,6 +246,9 @@ cluster: null
 
 ## Linux references 
 
+* find / -name [name}  2>&1 | grep -v "Permission denied"
+
+
 * Install DEB packages
 
       $ sudo dpkg -i [package-name].deb
